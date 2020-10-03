@@ -1,0 +1,10 @@
+.header {
+  background-color: #212121;
+  color: #fff;
+  padding: .5rem 1rem;
+  text-align: center;
+}
+
+header h2 {
+  font-size: 2rem;
+}
