@@ -26,7 +26,7 @@ main {
 
 
 .pokedex-control {
-  margin: 4rem 0 3rem;
+  margin: 4rem 0 2rem;
   display: grid;
   grid-template-columns: 17rem;
   grid-gap: .5rem;
@@ -77,4 +77,33 @@ main {
 .pokedex-control #filter-name:focus {
   border-bottom: 1px solid #000;
 }
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0 25px;
+  border-radius: 50%;
+  transition: 0.2s;
+  opacity: .8;
+}
+
+.btn button:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.btn button[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
+
 
