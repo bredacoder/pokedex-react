@@ -29,7 +29,6 @@ const Main = () => {
   }, [])
 
   const next = async () => {
-    if (!nextUrl) return
     setLoading(true);
     let data = await getAllPokemon(nextUrl);
     await loadingPokemon(data.results);
@@ -83,8 +82,12 @@ const Main = () => {
       </form>
 
       <div className="btn">
-        <button disabled={!prevUrl} onClick={prev}><img src={prevIcon} alt="" /></button>
-        <button disabled={!nextUrl} onClick={next}><img src={nextIcon} alt="" /></button>
+        <button disabled={!prevUrl} onClick={prev}><img src={prevIcon} alt="prevIcon"/></button>
+        <button 
+          disabled={nextUrl === "https://pokeapi.co/api/v2/pokemon?offset=160&limit=20"} 
+          onClick={next}>
+          <img src={nextIcon} alt="nextIcon"/>
+        </button>
       </div>
       { loading ?
         <>
@@ -111,7 +114,11 @@ const Main = () => {
 
             <div className="btn">
               <button disabled={!prevUrl} onClick={prev}><img src={prevIcon} alt="" /></button>
-              <button disabled={!nextUrl} onClick={next}><img src={nextIcon} alt="" /></button>
+              <button 
+                disabled={nextUrl === "https://pokeapi.co/api/v2/pokemon?offset=160&limit=20"} 
+                onClick={next}>
+                <img src={nextIcon} alt="nextIcon"/>
+              </button>
             </div>
           </>
         )
