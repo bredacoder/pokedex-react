@@ -1,16 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import './styles.css'
+import "./styles.css";
 
 const Select = () => {
-
   return (
     <form className="pokedex-control">
       <div className="form-control">
         <label htmlFor="filter-name">Name:</label>
-        <input 
-          type="search" 
-          id="filter-name" />
+        <input type="search" id="filter-name" />
       </div>
       <div className="form-control">
         <label htmlFor="filter-type">Type:</label>
@@ -28,7 +25,7 @@ const Select = () => {
         </select>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export default Select;
