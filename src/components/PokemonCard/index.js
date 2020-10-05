@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import './styles.css'
 
-const PokemonCard = ({ pokemon }) => {
-  const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`
+const PokemonCard = ({ pokemon, url }) => {
+  const [types, setTypes] = useState([]);
+
+  const pokemonIndex = url.split("/")[url.split('/').length - 2];
+  const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${pokemonIndex}.png`
+
+  useEffect(() => {
+    async function loadPokemon() {
+      await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`)
+        .then((response) => {
+          const data = response.data;
+          const type = data.types;
+    
+          setTypes(type);
+        });
+    }
+    loadPokemon();
+  }, [pokemonIndex]);
 
   return (
     <div className="pokemon">
@@ -17,7 +35,7 @@ const PokemonCard = ({ pokemon }) => {
 
       <section className="pokemon-description">
         <span className="pokemon-id">
-          N°{`00${pokemon.id}`.slice(-3)}
+          N°{`00${pokemonIndex}`.slice(-3)}
         </span>
       
 
@@ -32,11 +50,12 @@ const PokemonCard = ({ pokemon }) => {
         </h1>
 
         <div className="pokemon-types">
-          {pokemon.types.map(type => {
+          {types.map(type => {
             return (
-              <span className={`pokemon-type background-${type.type.name}`}>
-                {type.type.name}
-              </span>
+              <span 
+                key={type.type.name}
+                className={`pokemon-type background-${type.type.name}`}
+              >{type.type.name}</span>
             )
           })}
         </div>
