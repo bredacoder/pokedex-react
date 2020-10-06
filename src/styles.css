@@ -96,3 +96,8 @@ html, body {
   background-color: #f7de3f;
   color: #212121 !important;
 }
+
+.background-dark {
+  background-color: #6d594a;
+  color: #fff !important;
+}
