@@ -8,11 +8,12 @@ const Main = () => {
   const [pokemons, setPokemons] = useState([]);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [name, setName] = useState();
+  const [types, setTypes] = useState([]);
   const inputRef = useRef(null);
 
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
+      .get("https://pokeapi.co/api/v2/pokemon")
       .then((response) => {
         setPokemons(response.data["results"]);
       });
@@ -27,6 +28,14 @@ const Main = () => {
       setFilteredPokemons(pokemons);
     }
   }, [pokemons, name]);
+
+  useEffect(() => {
+    axios
+      .get("https://pokeapi.co/api/v2/type")
+      .then((response) => {
+        setTypes(response.data.results)
+      })
+  })
 
   return (
     <main>
@@ -45,7 +54,9 @@ const Main = () => {
         <div className="form-control">
           <label htmlFor="filter-type">Type:</label>
           <select id="filter-type">
-            <option value="">All</option>
+            {types.map((type) => (
+              <option key={type.name} value={type.name}>{type.name}</option>
+            ))}
           </select>
         </div>
         <div className="form-control">
