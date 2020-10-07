@@ -8,12 +8,22 @@ const Main = () => {
   const [pokemons, setPokemons] = useState([]);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [name, setName] = useState();
-  const [types, setTypes] = useState([]);
+  const [types, setTypes] = useState();
   const inputRef = useRef(null);
+
+  console.log(types)
+
+  const options = [
+    { value: 'normal' }, { value: 'fighting' }, { value: 'flying' }, { value: 'poison' },
+    { value: 'ground' }, { value: 'rock' }, { value: 'bug' }, { value: 'ghost' },
+    { value: 'steel' }, { value: 'fire' }, { value: 'water' }, { value: 'grass' },
+    { value: 'electric' }, { value: 'psychic' }, { value: 'ice' }, { value: 'dragon' },
+    { value: 'dark' }, { value: 'fairy' }
+  ]
 
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then((response) => {
         setPokemons(response.data["results"]);
       });
@@ -28,14 +38,7 @@ const Main = () => {
       setFilteredPokemons(pokemons);
     }
   }, [pokemons, name]);
-
-  useEffect(() => {
-    axios
-      .get("https://pokeapi.co/api/v2/type")
-      .then((response) => {
-        setTypes(response.data.results)
-      })
-  })
+  
 
   return (
     <main>
@@ -51,14 +54,28 @@ const Main = () => {
             }}
           />
         </div>
+
         <div className="form-control">
           <label htmlFor="filter-type">Type:</label>
-          <select id="filter-type">
-            {types.map((type) => (
-              <option key={type.name} value={type.name}>{type.name}</option>
+          <select id="filter-type"
+            onChange={e => {setTypes(e.target.value)}}
+          >
+            <option value="undefined">All</option>
+            {options.map(option => (
+              <option key={option.value} value={option.value}>{option.value}</option>
             ))}
           </select>
         </div>
+
+{/* 
+        onChange={e => { setTypes(e.target.value) }}
+            options={[
+              { value: 'normal' }, { value: 'fighting' }, { value: 'flying' }, { value: 'poison' },
+              { value: 'ground' }, { value: 'rock' }, { value: 'bug' }, { value: 'ghost' },
+              { value: 'steel' }, { value: 'fire' }, { value: 'water' }, { value: 'grass' },
+              { value: 'electric' }, { value: 'psychic' }, { value: 'ice' }, { value: 'dragon' },
+              { value: 'dark' }, { value: 'fairy' }
+            ]} */}
         <div className="form-control">
           <label htmlFor="sort">Sort:</label>
           <select id="sort-type">
