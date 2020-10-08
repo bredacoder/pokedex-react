@@ -36,9 +36,16 @@ const Main = () => {
   useEffect(() => {
     if (sortPokemons === "A-Z") {
       const filtered = pokemons.sort(function (a, b) {
-        return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
       })
       setFilteredPokemons(filtered)
+    } else if (sortPokemons === "Z-A") {
+      const filtered = pokemons.sort(function (a, b) {
+        return b.name < a.name ? -1 : b.name > a.name ? 1 : 0;
+      })
+      setFilteredPokemons(filtered)
+    } else {
+      setFilteredPokemons(pokemons)
     }
   }, [pokemons, sortPokemons])
 
