@@ -16,7 +16,7 @@ const Main = () => {
 
   function getPokemons() {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=250")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then((response) => {
         setPokemons(response.data["results"]);
         setFilteredPokemons(response.data["results"]);
