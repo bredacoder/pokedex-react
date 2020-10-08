@@ -88,7 +88,7 @@ main {
 
 @media (min-width: 840px) {
   .pokedex-control {
-    grid-template-columns: repeat(3, 17rem);
+    grid-template-columns: repeat(2, 17rem);
   }
 }
 
