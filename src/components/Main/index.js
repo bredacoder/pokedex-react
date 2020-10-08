@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import "./styles.css";
@@ -9,18 +9,19 @@ const Main = () => {
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [option, setOption] = useState();
   const [name, setName] = useState();
-  const inputRef = useRef(null);
-
-  // console.log(sortPokemons)
 
   useEffect(() => {
+    getPokemons()
+  }, []);
+
+  function getPokemons() {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=250")
       .then((response) => {
         setPokemons(response.data["results"]);
         setFilteredPokemons(response.data["results"]);
       });
-  }, []);
+  }
 
   useEffect(() => {
     if (name !== undefined) {
@@ -41,16 +42,26 @@ const Main = () => {
           return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
         });
         setFilteredPokemons(filtered);
+
       } else if (e.target.value === "Z-A") {
         const filtered = pokemons.sort(function (a, b) {
           return b.name < a.name ? -1 : b.name > a.name ? 1 : 0;
         });
         setFilteredPokemons(filtered);
+
+      } else if (e.target.value === 'Lowest Number (First)') {
+        
+        getPokemons()
+         
+      } else if (e.target.value === 'Highest Number (First)'){
+        const filtered = pokemons.reverse()
+        setFilteredPokemons(filtered)
+
       } else {
         setFilteredPokemons(pokemons);
       }
     },
-    [pokemons, option]
+    [pokemons]
   );
 
   return (
@@ -61,7 +72,6 @@ const Main = () => {
           <input
             type="search"
             id="filter-name"
-            ref={inputRef}
             onChange={(e) => {
               setName(e.target.value);
             }}
