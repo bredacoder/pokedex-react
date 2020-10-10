@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+
+import api from '../../services/api';
 
 import "./styles.css";
 import PokemonCard from "../PokemonCard";
@@ -10,17 +11,21 @@ const Main = () => {
   const [option, setOption] = useState();
   const [name, setName] = useState();
 
+
   useEffect(() => {
     getPokemons()
   }, []);
 
-  function getPokemons() {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
-      .then((response) => {
-        setPokemons(response.data["results"]);
-        setFilteredPokemons(response.data["results"]);
-      });
+  async function getPokemons() {
+    try {
+      const response = await api.get("/api/v2/pokemon?limit=150")
+      
+      setPokemons(response.data["results"]);
+      setFilteredPokemons(response.data["results"]);
+    } catch (err) {
+      console.log(err)
+    }
+
   }
 
   useEffect(() => {
@@ -50,10 +55,10 @@ const Main = () => {
         setFilteredPokemons(filtered);
 
       } else if (e.target.value === 'Lowest Number (First)') {
-        
+
         getPokemons()
-         
-      } else if (e.target.value === 'Highest Number (First)'){
+
+      } else if (e.target.value === 'Highest Number (First)') {
         const filtered = pokemons.reverse()
         setFilteredPokemons(filtered)
 
@@ -77,7 +82,7 @@ const Main = () => {
             }}
           />
         </div>
-
+            
         <div className="form-control">
           <label htmlFor="sort">Sort:</label>
           <select id="sort-type" onChange={filterPokemonsAZ}>
