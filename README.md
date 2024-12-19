@@ -1,7 +1,5 @@
 <h1 align="center">Pokédex React </h1>
 
-<h2 align="center"><a href="https://pokedex-react.danielfelipedeveloper.vercel.app/">Link do Site</a> </h2>
-
 ## :rocket: Sobre o que criei
 
 <p> 
